@@ -3,13 +3,15 @@
 #include "point.h"
 #include <SDL2/SDL.h>
 
-#define RADIUS 25
+// #define RADIUS 25
+#define CIRCLES_QUANTITY 5
 
 struct {
   Point position;
-} circles[2];
+  int radius;
+} circles[CIRCLES_QUANTITY];
 
-void DrawCircle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY,
-                int32_t radius);
+void draw_circle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY,
+                 int32_t radius);
 void circles_initialize();
 void circles_draw();
