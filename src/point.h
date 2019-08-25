@@ -7,7 +7,9 @@ typedef struct {
   float y;
 } Point;
 
-Point point_subtract(Point point1, Point point2);
-Point point_add(Point point1, Point point2);
-float point_distance(Point point1, Point point2);
-float point_scalar(Point point1, Point point2);
+Point point_new(float, float);
+Point point_subtract(Point, Point);
+Point point_add(Point, Point);
+float point_distance(Point, Point);
+float point_scalar(Point, Point);
+void point_redistance(Point *, Point, float);

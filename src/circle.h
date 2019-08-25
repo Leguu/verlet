@@ -6,7 +6,7 @@
 // #define RADIUS 25
 #define CIRCLES_QUANTITY 5
 
-struct {
+struct circle {
   Point position;
   int radius;
 } circles[CIRCLES_QUANTITY];

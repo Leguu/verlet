@@ -4,9 +4,9 @@
 
 /// Returns head of node as a pointer.
 Node *nodes_initialize() {
-  for (int i = 0, j = 20; i < QUANTITY; i++, j++) {
+  for (int i = 0, j = 5; i < QUANTITY; i++, j++) {
     nodes[i].position.x = j;
-    nodes[i].position.y = 50;
+    nodes[i].position.y = 25;
     nodes[i].previous = nodes[i].position;
   }
 
@@ -23,40 +23,20 @@ void nodes_draw() {
   }
 }
 
-#define RESTING_DISTANCE 1
-
-void node_redistance(Point *position1, Point position2) {
-  float x_difference = position1->x - position2.x;
-  float y_difference = position1->y - position2.y;
-
-  float scalar_position = point_scalar(*position1, position2);
-  position1->x += x_difference * RESTING_DISTANCE * scalar_position;
-  position1->y += y_difference * RESTING_DISTANCE * scalar_position;
-}
-
 void nodes_update() {
   for (int i = QUANTITY - 2; i >= 0; i--) {
+    /// The currently selected node's position
+    /// Separate variable because it's used often here
+    Point *current = &nodes[i].position;
+    Point difference = point_subtract(*current, nodes[i].previous);
 
-    Point difference = point_subtract(nodes[i].position, nodes[i].previous);
-    nodes[i].position = point_add(nodes[i].position, difference);
-    nodes[i].previous = nodes[i].position;
-    // nodes[i].position.y += 1;
+    // CONSTRAINTS
+    point_redistance(current, nodes[i + 1].position, 0.7);
+    for (int j = 0; j < CIRCLES_QUANTITY; j++)
+      if (point_distance(*current, circles[j].position) < circles[j].radius)
+        point_redistance(current, circles[j].position, -0.01);
 
-    node_redistance(&nodes[i].position, nodes[i + 1].position);
-
-    for (int j = 0; j < CIRCLES_QUANTITY; j++) {
-      if (point_distance(nodes[i].position, circles[j].position) <
-          circles[j].radius) {
-        Point *position1 = &nodes[i].position;
-        Point position2 = circles[j].position;
-
-        float x_difference = position1->x - position2.x;
-        float y_difference = position1->y - position2.y;
-
-        float scalar_position = point_scalar(*position1, position2);
-        position1->x -= x_difference * 0.05 * scalar_position;
-        position1->y -= y_difference * 0.05 * scalar_position;
-      }
-    }
+    *current = point_add(*current, difference);
+    nodes[i].previous = *current;
   }
 }

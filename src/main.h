@@ -3,6 +3,9 @@
 #include "point.h"
 #include <SDL2/SDL.h>
 
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 400
+
 #define DEBUG 1
 
 #define LOG(...)                                                               \

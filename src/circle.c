@@ -3,6 +3,27 @@
 #include "point.h"
 #include <SDL2/SDL.h>
 
+struct circle circle_new(float x, float y, int radius) {
+  return (struct circle){.position = point_new(x, y), .radius = radius};
+}
+
+void circles_initialize() {
+  circles[4] = circle_new(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 35);
+  float default_x = circles[4].position.x;
+  float default_y = circles[4].position.y;
+
+  circles[0] = circle_new(default_x - 100, default_y - 100, 25);
+  circles[1] = circle_new(default_x + 100, default_y - 100, 25);
+  circles[2] = circle_new(default_x - 100, default_y + 100, 25);
+  circles[3] = circle_new(default_x + 100, default_y + 100, 25);
+}
+
+void circles_draw() {
+  for (int i = 0; i < CIRCLES_QUANTITY; i++)
+    draw_circle(app.renderer, circles[i].position.x, circles[i].position.y,
+                circles[i].radius);
+}
+
 void draw_circle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY,
                  int32_t radius) {
   const int32_t diameter = (radius * 2);
@@ -36,32 +57,4 @@ void draw_circle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY,
       error += (tx - diameter);
     }
   }
-}
-
-void circles_initialize() {
-  circles[0].position.x = 300;
-  circles[0].position.y = 100;
-  circles[0].radius = 20;
-
-  circles[1].position.x = 500;
-  circles[1].position.y = 100;
-  circles[1].radius = 20;
-
-  circles[2].position.x = 300;
-  circles[2].position.y = 300;
-  circles[2].radius = 20;
-
-  circles[3].position.x = 500;
-  circles[3].position.y = 300;
-  circles[3].radius = 20;
-
-  circles[4].position.x = 400;
-  circles[4].position.y = 200;
-  circles[4].radius = 30;
-}
-
-void circles_draw() {
-  for (int i = 0; i < CIRCLES_QUANTITY; i++)
-    draw_circle(app.renderer, circles[i].position.x, circles[i].position.y,
-                circles[i].radius);
 }

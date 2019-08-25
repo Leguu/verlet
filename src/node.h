@@ -2,7 +2,7 @@
 
 #include "point.h"
 
-#define QUANTITY 2048
+#define QUANTITY 4096
 
 typedef struct {
   Point position;
