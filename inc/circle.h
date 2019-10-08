@@ -3,7 +3,7 @@
 #include "point.h"
 #include <SDL2/SDL.h>
 
-// #define RADIUS 25
+// Quantity of circles
 #define CIRCLES_QUANTITY 5
 
 struct circle {

@@ -15,6 +15,7 @@ void app_initialize() {
 
 #include <time.h>
 float time_previous;
+// Tries to keep the framerate to target.
 int do_fps(float target) {
   float time_current = clock() / 1000000.0;
   int result = time_current - time_previous > 1 / target;
@@ -34,10 +35,14 @@ int main() {
 
   SDL_Event event;
   while (1) {
+    // Checks the next event (mouse / keyboard, etc.) and places it in `event`
+    // Using a `goto` here in order to be cleaner, and to do cleanup at the end.
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT || event.button.button == SDL_SCANCODE_Q)
       goto exit;
 
+    // If the mouse is clicked, move the head of the node to the mouse cursor's
+    // position
     if (SDL_GetMouseState(NULL, NULL))
       head->position = (Point){.x = event.button.x, .y = event.button.y};
     nodes_update();

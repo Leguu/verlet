@@ -24,6 +24,7 @@ void circles_draw() {
                 circles[i].radius);
 }
 
+// Copied function from stackoverflow
 void draw_circle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY,
                  int32_t radius) {
   const int32_t diameter = (radius * 2);

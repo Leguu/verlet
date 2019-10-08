@@ -28,14 +28,22 @@ void nodes_update() {
     /// The currently selected node's position
     /// Separate variable because it's used often here
     Point *current = &nodes[i].position;
+
+    // The difference between the node's old position, and new one
     Point difference = point_subtract(*current, nodes[i].previous);
 
     // CONSTRAINTS
+    // This will move the current point 0.7% of the distance to the next point.
     point_redistance(current, nodes[i + 1].position, 0.7);
+
+    // For every circle, checks if the current node is inside the circle, and
+    // moves it away That's why point_redistance has a negative value.
     for (int j = 0; j < CIRCLES_QUANTITY; j++)
       if (point_distance(*current, circles[j].position) < circles[j].radius)
         point_redistance(current, circles[j].position, -0.01);
 
+    // Adds the difference to the node's current position and resets its
+    // previous position
     *current = point_add(*current, difference);
     nodes[i].previous = *current;
   }
