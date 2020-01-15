@@ -7,6 +7,7 @@ OUTPUT = out
 
 # Flags to pass to the CC
 FLAGS += -lm `sdl2-config --cflags --libs`
+FLAGS += -pedantic
 
 # INCLUDE any directories you want to search for headers in
 # This works for including <> style headers as well
