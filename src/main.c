@@ -5,11 +5,11 @@
 #include <SDL2/SDL.h>
 #include <math.h>
 
-void app_initialize() {
+void app_initialize(Application *app) {
   SDL_Init(SDL_INIT_VIDEO);
-  app.window = SDL_CreateWindow(0, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
-  app.renderer = SDL_CreateRenderer(app.window, -1, SDL_RENDERER_ACCELERATED);
-  if (!app.window || !app.renderer)
+  app->window = SDL_CreateWindow(0, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+  app->renderer = SDL_CreateRenderer(app->window, -1, SDL_RENDERER_ACCELERATED);
+  if (!app->window || !app->renderer)
     FAILURE(1, "App initialization failed: %s\n", SDL_GetError());
 }
 
@@ -27,10 +27,15 @@ int do_fps(float target) {
 
 int main() {
   LOG("Initializing app...\n");
-  app_initialize();
-  circles_initialize();
+  Application app;
+  app_initialize(&app);
+
+  struct circle circles[CIRCLES_QUANTITY];
+  circles_initialize(circles);
+
+  Node nodes[QUANTITY];
   /// This is the head of the chain of nodes.
-  Node *head = nodes_initialize();
+  Node *head = nodes_initialize(nodes);
   LOG("App initialized!\n");
 
   SDL_Event event;
@@ -45,7 +50,7 @@ int main() {
     // position
     if (SDL_GetMouseState(NULL, NULL))
       head->position = (Point){.x = event.button.x, .y = event.button.y};
-    nodes_update();
+    nodes_update(circles, nodes);
 
     if (!do_fps(60))
       continue;
@@ -54,9 +59,9 @@ int main() {
     SDL_RenderClear(app.renderer);
 
     SDL_SetRenderDrawColor(app.renderer, 255, 0, 0, 255);
-    circles_draw();
+    circles_draw(app, circles);
     SDL_SetRenderDrawColor(app.renderer, 255, 255, 255, 255);
-    nodes_draw();
+    nodes_draw(app, nodes);
 
     SDL_RenderPresent(app.renderer);
   }

@@ -9,7 +9,7 @@
 struct circle {
   Point position;
   int radius;
-} circles[CIRCLES_QUANTITY];
+};
 
 void draw_circle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY,
                  int32_t radius);

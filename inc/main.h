@@ -8,10 +8,10 @@
 
 // The renderer and window for the app, very useful and therefore a global
 // variable
-struct {
+typedef struct {
   SDL_Renderer *renderer;
   SDL_Window *window;
-} app;
+} Application;
 
 // General debug statements... not very useful.
 // LOG will not run if DEBUG is not true.

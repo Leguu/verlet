@@ -3,7 +3,7 @@
 #include "main.h"
 
 /// Returns head of node as a pointer.
-Node *nodes_initialize() {
+Node *nodes_initialize(Node *nodes) {
   for (int i = 0, j = 5; i < QUANTITY; i++, j++) {
     nodes[i].position.x = j;
     nodes[i].position.y = 25;
@@ -13,7 +13,7 @@ Node *nodes_initialize() {
   return &nodes[QUANTITY - 1];
 }
 
-void nodes_draw() {
+void nodes_draw(Application app, Node *nodes) {
   for (int i = 0; i < QUANTITY - 1; i++) {
     float x = nodes[i].position.x;
     float y = nodes[i].position.y;
@@ -23,7 +23,7 @@ void nodes_draw() {
   }
 }
 
-void nodes_update() {
+void nodes_update(struct circle *circles, Node *nodes) {
   for (int i = QUANTITY - 2; i >= 0; i--) {
     /// The currently selected node's position
     /// Separate variable because it's used often here

@@ -10,8 +10,6 @@ typedef struct {
   Point previous;
 } Node;
 
-Node nodes[QUANTITY];
-
 Node *nodes_initialize();
 void nodes_draw();
 void nodes_update();

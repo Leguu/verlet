@@ -7,7 +7,7 @@ struct circle circle_new(float x, float y, int radius) {
   return (struct circle){.position = point_new(x, y), .radius = radius};
 }
 
-void circles_initialize() {
+void circles_initialize(struct circle *circles) {
   circles[4] = circle_new(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 35);
   float default_x = circles[4].position.x;
   float default_y = circles[4].position.y;
@@ -18,7 +18,7 @@ void circles_initialize() {
   circles[3] = circle_new(default_x + 100, default_y + 100, 25);
 }
 
-void circles_draw() {
+void circles_draw(Application app, struct circle *circles) {
   for (int i = 0; i < CIRCLES_QUANTITY; i++)
     draw_circle(app.renderer, circles[i].position.x, circles[i].position.y,
                 circles[i].radius);
