@@ -1,3 +1,5 @@
+Note: This project is deprecated. Check out the re-written version [here](https://github.com/Leguu/verlet-zig).
+
 # Verlet
 
 ![](demo.gif)
